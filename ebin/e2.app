@@ -1,0 +1,11 @@
+{application,e2,
+             [{description,"High level Erlang application framework"},
+              {vsn,"0.1.0"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[e2_application,e2_application_sup,e2_debug,e2_lock,
+                        e2_log,e2_log_handler,e2_opt,e2_publisher,e2_reloader,
+                        e2_service,e2_service_impl,e2_simple_task,
+                        e2_supervisor,e2_task,e2_task_impl,
+                        e2_task_supervisor]}]}.
