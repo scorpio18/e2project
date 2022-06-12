@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>e2 vs OTP &mdash; e2</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="e2" href="index.html" />
+    <link rel="next" title="Design Principles" href="principles.html" />
+    <link rel="prev" title="Examples" href="examples.html" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30496899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="principles.html" title="Design Principles"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="e2-vs-otp">
+<h1>e2 vs OTP<a class="headerlink" href="#e2-vs-otp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="e2-service-vs-gen-server">
+<h2>e2_service vs gen_server<a class="headerlink" href="#e2-service-vs-gen-server" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.erlang.org/doc/man/gen_event.html">gen_server</a> is the workhorse OTP behavior – it’s the primary OTP interface
+to Erlang processes.</p>
+<p><a class="reference internal" href="services.html"><span class="doc">e2_service</span></a> is the equivalent in e2.</p>
+<p><code class="docutils literal notranslate"><span class="pre">e2_service</span></code> is identical to <code class="docutils literal notranslate"><span class="pre">gen_server</span></code> under the covers – it is a
+<code class="docutils literal notranslate"><span class="pre">gen_server</span></code> behavior. The additional overhead in using an e2 service is the
+cost of an additional functional call for each <code class="docutils literal notranslate"><span class="pre">gen_server</span></code> operation.</p>
+<p><code class="docutils literal notranslate"><span class="pre">e2_service</span></code> differs from <code class="docutils literal notranslate"><span class="pre">gen_server</span></code> as follows:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">init/1</span></code> and <code class="docutils literal notranslate"><span class="pre">terminate/2</span></code> are optional in e2</li>
+<li><code class="docutils literal notranslate"><span class="pre">handle_call/3</span></code>, <code class="docutils literal notranslate"><span class="pre">handle_cast/2</span></code>, and <code class="docutils literal notranslate"><span class="pre">handle_info/2</span></code> are consolidated
+into a single <code class="docutils literal notranslate"><span class="pre">handle_msg/3</span></code> callback in e2</li>
+<li><code class="docutils literal notranslate"><span class="pre">e2_service</span></code> does not support <code class="docutils literal notranslate"><span class="pre">code_change/3</span></code> <a class="footnote-reference" href="#code-change" id="id1">[1]</a></li>
+</ul>
+<p>The minimum foot print of <code class="docutils literal notranslate"><span class="pre">gen_server</span></code> looks like this:</p>
+<div class="highlight-erlang notranslate"><div class="highlight"><pre><span></span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">gen_server_skel</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">behaviour</span><span class="p">(</span><span class="n">gen_server</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">init</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">handle_call</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">handle_cast</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">handle_info</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>
+         <span class="n">terminate</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">code_change</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span>
+
+<span class="p">-</span><span class="ni">define</span><span class="p">(</span><span class="no">SERVER</span><span class="p">,</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">state</span><span class="p">,</span> <span class="p">{}).</span>
+
+<span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">gen_server</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="nv">SERVER</span><span class="p">},</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[]).</span>
+
+<span class="nf">init</span><span class="p">([])</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nl">#state</span><span class="p">{}}.</span>
+
+<span class="nf">handle_call</span><span class="p">(_</span><span class="nv">Request</span><span class="p">,</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">reply</span><span class="p">,</span> <span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+<span class="nf">handle_cast</span><span class="p">(_</span><span class="nv">Msg</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+<span class="nf">handle_info</span><span class="p">(_</span><span class="nv">Info</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+
+<span class="nf">terminate</span><span class="p">(_</span><span class="nv">Reason</span><span class="p">,</span> <span class="p">_</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="n">ok</span><span class="p">.</span>
+
+<span class="nf">code_change</span><span class="p">(_</span><span class="nv">OldVsn</span><span class="p">,</span> <span class="nv">State</span><span class="p">,</span> <span class="p">_</span><span class="nv">Extra</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</pre></div>
+</div>
+<p>The minimum foot print of <code class="docutils literal notranslate"><span class="pre">e2_service</span></code> looks like this:</p>
+<div class="highlight-erlang notranslate"><div class="highlight"><pre><span></span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">e2_service_skel</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start_link</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">handle_msg</span><span class="o">/</span><span class="mi">3</span><span class="p">]).</span>
+
+<span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">state</span><span class="p">,</span> <span class="p">{}).</span>
+
+<span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">e2_service</span><span class="p">:</span><span class="nf">start_link</span><span class="p">(</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="nl">#state</span><span class="p">{}).</span>
+
+<span class="nf">handle_msg</span><span class="p">(_</span><span class="nv">Msg</span><span class="p">,</span> <span class="p">_</span><span class="nv">From</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">noreply</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="e2-application-vs-application">
+<h2>e2_application vs application<a class="headerlink" href="#e2-application-vs-application" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://www.erlang.org/doc/man/application.html">application</a> OTP behavior is represented by the <a class="reference internal" href="applications.html"><span class="doc">e2_application</span></a> behavior.</p>
+<p><code class="docutils literal notranslate"><span class="pre">e2_application</span></code> implicitly uses a top-level supervisor rather than require a
+separate module. e2 application modules provide the top level list of
+supervised child specs.</p>
+<p>In OTP, applications typically start the top level supervisor.</p>
+</div>
+<div class="section" id="e2-task-vs-gen-server">
+<h2>e2_task vs gen_server<a class="headerlink" href="#e2-task-vs-gen-server" title="Permalink to this headline">¶</a></h2>
+<p>An <a class="reference internal" href="tasks.html"><span class="doc">e2 task</span></a> is a type of sevice that runs actively after it’s
+started. It’s a cleaner alternative to this pattern used in <code class="docutils literal notranslate"><span class="pre">gen_server</span></code>
+behaviors:</p>
+<div class="highlight-erlang notranslate"><div class="highlight"><pre><span></span><span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">gen_server</span><span class="p">:</span><span class="nf">start_link</span><span class="p">({</span><span class="n">local</span><span class="p">,</span> <span class="o">?</span><span class="nv">MODULE</span><span class="p">},</span> <span class="p">[]).</span>
+
+<span class="nf">init</span><span class="p">(</span><span class="nv">Args</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">init_state</span><span class="p">(</span><span class="nv">Args</span><span class="p">),</span> <span class="mi">0</span><span class="p">}.</span>
+
+<span class="nf">handle_info</span><span class="p">(</span><span class="n">timeout</span><span class="p">,</span> <span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="c">%% TODO: start my task here</span>
+    <span class="p">{</span><span class="n">stop</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</pre></div>
+</div>
+<p>Returning 0 for the timeout value in <code class="docutils literal notranslate"><span class="pre">init/1</span></code> will cause <code class="docutils literal notranslate"><span class="pre">gen_server</span></code> to
+call <code class="docutils literal notranslate"><span class="pre">handle_info/2</span></code> with a <code class="docutils literal notranslate"><span class="pre">timeout</span></code> message before processing any
+messages sent to the process from external sources. This can be used to start
+process work immediately after <code class="docutils literal notranslate"><span class="pre">init/1</span></code> returns without the risk of receiving
+unwanted messages.</p>
+<p>In e2, this is handled with the task behavior:</p>
+<div class="highlight-erlang notranslate"><div class="highlight"><pre><span></span><span class="nf">start_link</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">e2_task</span><span class="p">:</span><span class="nf">start_link</span><span class="p">(</span><span class="o">?</span><span class="nv">MODULE</span><span class="p">,</span> <span class="p">[]).</span>
+
+<span class="nf">init</span><span class="p">(</span><span class="nv">Args</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="n">init_state</span><span class="p">(</span><span class="nv">Args</span><span class="p">)}.</span>
+
+<span class="nf">handle_task</span><span class="p">(</span><span class="nv">State</span><span class="p">)</span> <span class="o">-&gt;</span>
+    <span class="c">%% TODO: start my task here</span>
+    <span class="p">{</span><span class="n">stop</span><span class="p">,</span> <span class="n">normal</span><span class="p">,</span> <span class="nv">State</span><span class="p">}.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="e2-task-supervisor-vs-supervisor">
+<h2>e2_task_supervisor vs supervisor<a class="headerlink" href="#e2-task-supervisor-vs-supervisor" title="Permalink to this headline">¶</a></h2>
+<p>Task supervisors in e2 are <code class="docutils literal notranslate"><span class="pre">simple_one_for_one</span></code> supervisors. This supervisor
+restart strategy automatically removes children when they’re completed, which
+is typically the desired behavior when managing concurrently running tasks of a
+particular type.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="code-change" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>This will likely be exposed in the future.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+<!--
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e2project';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+-->
+
+ <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'e2project'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/e2logo.png" alt="Logo"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">e2 Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">e2 Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">e2 Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source.html">Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">e2 Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">e2 Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">e2 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supervisors.html">e2 Supervisors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facades.html">Facades</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="erlang.html">Erlang Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="erlang_modules.html">Batteries Included</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">e2 vs OTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="principles.html">Design Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">To Do</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3>API Reference</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application.html">e2_application</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application_sup.html">e2_application_sup</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log.html">e2_log</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log_handler.html">e2_log_handler</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_opt.html">e2_opt</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_publisher.html">e2_publisher</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service.html">e2_service</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service_impl.html">e2_service_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_simple_task.html">e2_simple_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_supervisor.html">e2_supervisor</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task.html">e2_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_impl.html">e2_task_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_supervisor.html">e2_task_supervisor</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="principles.html" title="Design Principles"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Garrett Smith.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

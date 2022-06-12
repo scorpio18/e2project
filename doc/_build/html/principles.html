@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Design Principles &mdash; e2</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="e2" href="index.html" />
+    <link rel="next" title="To Do" href="todo.html" />
+    <link rel="prev" title="e2 vs OTP" href="e2_vs_otp.html" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30496899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="todo.html" title="To Do"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="e2_vs_otp.html" title="e2 vs OTP"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="design-principles">
+<h1>Design Principles<a class="headerlink" href="#design-principles" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="embrace-otp">
+<h2>Embrace OTP<a class="headerlink" href="#embrace-otp" title="Permalink to this headline">¶</a></h2>
+<p>e2’s primary focus is to make OTP easier to use – not to change it.</p>
+<p>e2 modules are relatively light weight wrappers around standard OTP modules.</p>
+</div>
+<div class="section" id="minimize-code-maximize-correctness">
+<h2>Minimize Code, Maximize Correctness<a class="headerlink" href="#minimize-code-maximize-correctness" title="Permalink to this headline">¶</a></h2>
+<p>Wherever possible, e2 will make sensible decisions for the user and provide the
+ability to override those decisions.</p>
+</div>
+<div class="section" id="promote-useful-design-patterns">
+<h2>Promote Useful Design Patterns<a class="headerlink" href="#promote-useful-design-patterns" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of design patterns lurking in OTP (e.g. services and
+tasks). e2 should make these patterns obvious and easy to use.</p>
+</div>
+<div class="section" id="avoid-renaming-terminology">
+<h2>Avoid Renaming Terminology<a class="headerlink" href="#avoid-renaming-terminology" title="Permalink to this headline">¶</a></h2>
+<p>e2 should not attempt to rename standard nomenclature in Erlang/OTP. e2 names
+should contribute to an improved understanding of OTP, not detract from it.</p>
+</div>
+<div class="section" id="keep-it-small">
+<h2>Keep It Small<a class="headerlink" href="#keep-it-small" title="Permalink to this headline">¶</a></h2>
+<p>e2 should never get big. “Big” is arbitrary, but you probably know it when you
+see it.</p>
+<p>Another way of putting it: e2 should only contain things that are really,
+really useful and would be painful to create in user space.</p>
+</div>
+</div>
+
+
+
+<!--
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e2project';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+-->
+
+ <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'e2project'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/e2logo.png" alt="Logo"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">e2 Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">e2 Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">e2 Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source.html">Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">e2 Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">e2 Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">e2 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supervisors.html">e2 Supervisors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facades.html">Facades</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="erlang.html">Erlang Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="erlang_modules.html">Batteries Included</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2_vs_otp.html">e2 vs OTP</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">To Do</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3>API Reference</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application.html">e2_application</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application_sup.html">e2_application_sup</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log.html">e2_log</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log_handler.html">e2_log_handler</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_opt.html">e2_opt</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_publisher.html">e2_publisher</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service.html">e2_service</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service_impl.html">e2_service_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_simple_task.html">e2_simple_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_supervisor.html">e2_supervisor</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task.html">e2_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_impl.html">e2_task_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_supervisor.html">e2_task_supervisor</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="todo.html" title="To Do"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="e2_vs_otp.html" title="e2 vs OTP"
+             >previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Garrett Smith.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

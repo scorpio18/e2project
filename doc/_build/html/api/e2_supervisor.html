@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module e2_supervisor</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module e2_supervisor</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>e2 supervisor.
+<p>Copyright © 2011-2016 Garrett Smith
+ </p>
+
+<p><b>Behaviours:</b> <a href="supervisor.html"><tt>supervisor</tt></a>.</p>
+<p><b>Authors:</b> Garrett Smith (<a href="mailto:g@rre.tt"><tt>g@rre.tt</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2><p>e2 supervisor.</p>
+ 
+  <p>An e2 supervisor provides identical functionality to that of an
+  <a href="http://www.erlang.org/doc/man/supervisor.html" target="_top">OTP supervisor</a> but  
+uses a simpler interface.</p>
+ 
+  See <a href="http://e2project.org/supervisors.html" target="_top">e2 supervisor</a> documentation
+  for more information.
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#start_child-2">start_child/2</a></td><td>Adds a child spec to a supervisor and starts the child process.</td></tr>
+<tr><td valign="top"><a href="#start_link-2">start_link/2</a></td><td>Starts a linked e2 supervisor.</td></tr>
+<tr><td valign="top"><a href="#start_link-3">start_link/3</a></td><td>Starts a linked e2 supervisor.</td></tr>
+<tr><td valign="top"><a href="#supervisor_spec-2">supervisor_spec/2</a></td><td>Returns an OTP supervisor spec for a list of child specs and  
+e2 supervisor options.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="start_child-2">start_child/2</a></h3>
+<div class="spec">
+<p><tt>start_child(Sup::Supervisor, Args::ChildSpecOrArgs) -&gt; Result</tt>
+<ul class="definitions"><li><tt>Supervisor = pid() | atom()</tt></li><li><tt>ChildSpecOrArgs = ChildSpec | [term()]</tt></li><li><tt>ChildSpec = {{Module, Function, Args}, ChildOptions} | {Module, Function, Args} | {Module, ChildOptions} | Module</tt></li><li><tt>Result = {ok, Child} | {error, Error}</tt></li><li><tt>Child = pid()</tt></li><li><tt>Error = already_present | {already_started, Child} | term()</tt></li></ul></p>
+</div><p>Adds a child spec to a supervisor and starts the child process.
+ </p>
+
+<h3 class="function"><a name="start_link-2">start_link/2</a></h3>
+<div class="spec">
+<p><tt>start_link(Module, ChildrenOrArgs) -&gt; any()</tt></p>
+</div><p>Equivalent to <a href="#start_link-3"><tt>start_link(Module, ChildrenOrArgs, [])</tt></a>.</p>
+<p>Starts a linked e2 supervisor.</p>
+
+<h3 class="function"><a name="start_link-3">start_link/3</a></h3>
+<div class="spec">
+<p><tt>start_link(Module, ChildrenOrArgs, Options) -&gt; {ok, Pid} | {error, Reason}</tt>
+<ul class="definitions"><li><tt>Module = module()</tt></li><li><tt>ChildrenOrArgs = Children | term()</tt></li><li><tt>Children = [ChildSpec]</tt></li><li><tt>ChildSpec = {{Module, Function, Args}, ChildOptions} | {Module, Function, Args} | {Module, ChildOptions} | Module</tt></li><li><tt>Module = atom()</tt></li><li><tt>Function = atom()</tt></li><li><tt>Args = [term()]</tt></li><li><tt>ChildOptions = [ChildOption]</tt></li><li><tt>ChildOption = {id, term()} | {restart, Restart} | {shutdown, Shutdown}</tt></li><li><tt>Restart = permanent | temporary | transient</tt></li><li><tt>Shutdown = brutal_kill | integer()</tt></li><li><tt>Options = [Option]</tt></li><li><tt>Option = {strategy, Strategy} | {max_restart, {Max, Seconds}} | Registered</tt></li><li><tt>Strategy = one_for_all | one_for_one | rest_for_one | simple_one_for_one</tt></li><li><tt>Max = integer()</tt></li><li><tt>Seconds = integer()</tt></li><li><tt>Registered = registered | {registered, Name}</tt></li><li><tt>Name = atom()</tt></li></ul></p>
+</div><p><p>Starts a linked e2 supervisor.</p>
+ 
+  <p>The e2 supervisor API lets you create child specs with minimal  
+complexity, picking sensible defaults for missing values.</p>
+ 
+  <p>If <code>Module</code> exports <code>init/1</code>, <code>ChildrenOrArgs</code> will be used as the  
+argument to that function and the result of that function will be used  
+as the child spec.</p>
+ 
+  <h4>Defaults</h4>
+  <pre>
+  Function = start_link
+  Args = []
+  ChildOptions = [{id, Module}, {restart, permanent}, {shutdown, brutal_kill}]
+  Options = [{strategy, one_for_one}, {max_restart, {1, 1}}]
+  </pre>
+ 
+  Refer to <a href="http://e2project.org/supervisors.html" target="_top">e2 supervisor</a> and
+  <a href="http://e2project.org/applications.html" target="_top">e2 applications</a> documentation
+  for more information.
+ </p>
+
+<h3 class="function"><a name="supervisor_spec-2">supervisor_spec/2</a></h3>
+<div class="spec">
+<p><tt>supervisor_spec(Children, Options) -&gt; OTPSupervisorSpec</tt><br></p>
+</div><p><p>Returns an OTP supervisor spec for a list of child specs and  
+e2 supervisor options.</p>
+ 
+  See <a href="#start_link-3"><code>start_link/3</code></a> for details on <code>ChildSpec</code> and <code>Options</code>.
+ </p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc</i></p>
+</body>
+</html>

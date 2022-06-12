@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Facades &mdash; e2</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="e2" href="index.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="e2 Supervisors" href="supervisors.html" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30496899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="supervisors.html" title="e2 Supervisors"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="facades">
+<h1>Facades<a class="headerlink" href="#facades" title="Permalink to this headline">¶</a></h1>
+<p>Facades are Erlang modules that define a simplified interface to the
+functionality provided by an <a class="reference internal" href="applications.html"><span class="doc">application</span></a>.</p>
+<p>Facades should always the same name as the Erlang application.</p>
+<p>Facades often provide a convenience function <code class="docutils literal notranslate"><span class="pre">start/0</span></code> that can be used to
+start the application along with its dependencies. You can use
+<code class="docutils literal notranslate"><span class="pre">e2_application:start_with_dependencies/1</span></code> to do this.</p>
+<p>Here’s a minimal facade example:</p>
+<div class="highlight-erlang notranslate"><div class="highlight"><pre><span></span><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">myapp</span><span class="p">).</span>
+
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">start</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="o">/</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nf">start</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">e2_application</span><span class="p">:</span><span class="nf">start_with_dependencies</span><span class="p">(</span><span class="n">myapp</span><span class="p">).</span>
+
+<span class="nf">stop</span><span class="p">()</span> <span class="o">-&gt;</span>
+    <span class="nn">application</span><span class="p">:</span><span class="nf">stop</span><span class="p">(</span><span class="n">myapp</span><span class="p">).</span>
+</pre></div>
+</div>
+<p>Projects created with the <code class="docutils literal notranslate"><span class="pre">new-project</span></code> e2 make target</p>
+</div>
+
+
+
+<!--
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e2project';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+-->
+
+ <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'e2project'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/e2logo.png" alt="Logo"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">e2 Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">e2 Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">e2 Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source.html">Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="applications.html">e2 Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">e2 Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">e2 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supervisors.html">e2 Supervisors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Facades</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="erlang.html">Erlang Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="erlang_modules.html">Batteries Included</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2_vs_otp.html">e2 vs OTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="principles.html">Design Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">To Do</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3>API Reference</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application.html">e2_application</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application_sup.html">e2_application_sup</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log.html">e2_log</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log_handler.html">e2_log_handler</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_opt.html">e2_opt</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_publisher.html">e2_publisher</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service.html">e2_service</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service_impl.html">e2_service_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_simple_task.html">e2_simple_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_supervisor.html">e2_supervisor</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task.html">e2_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_impl.html">e2_task_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_supervisor.html">e2_task_supervisor</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="supervisors.html" title="e2 Supervisors"
+             >previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Garrett Smith.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

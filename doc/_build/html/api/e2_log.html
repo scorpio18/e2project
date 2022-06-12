@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Module e2_log</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
+</head>
+<body bgcolor="white">
+<div class="navbar"><a name="#navbar_top"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<hr>
+
+<h1>Module e2_log</h1>
+<ul class="index"><li><a href="#description">Description</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul>e2 log support.
+<p>Copyright © 2011-2016 Garrett Smith
+ </p>
+
+<p><b>Authors:</b> Garrett Smith (<a href="mailto:g@rre.tt"><tt>g@rre.tt</tt></a>).</p>
+
+<h2><a name="description">Description</a></h2><p>e2 log support.</p>
+ 
+  e2_log provides a more terse interface to Erlang's standard
+  <a href="http://www.erlang.org/doc/man/error_logger.html" target="_top">error_logger</a> module.
+ 
+<h2><a name="index">Function Index</a></h2>
+<table width="100%" border="1" cellspacing="0" cellpadding="2" summary="function index"><tr><td valign="top"><a href="#add_handler-1">add_handler/1</a></td><td>Registered a log handler.</td></tr>
+<tr><td valign="top"><a href="#add_handler-2">add_handler/2</a></td><td>Registered a log handler.</td></tr>
+<tr><td valign="top"><a href="#delete_handler-1">delete_handler/1</a></td><td>Unregisters a log handler.</td></tr>
+<tr><td valign="top"><a href="#error-1">error/1</a></td><td>Logs an error report.</td></tr>
+<tr><td valign="top"><a href="#error-2">error/2</a></td><td>Log an error message or report.</td></tr>
+<tr><td valign="top"><a href="#info-1">info/1</a></td><td>Log an info report.</td></tr>
+<tr><td valign="top"><a href="#info-2">info/2</a></td><td>Log an info report.</td></tr>
+<tr><td valign="top"><a href="#tty-1">tty/1</a></td><td>Turns tty printing on or off.</td></tr>
+<tr><td valign="top"><a href="#warn-1">warn/1</a></td><td>Log a warning report.</td></tr>
+<tr><td valign="top"><a href="#warn-2">warn/2</a></td><td>Log a warning report.</td></tr>
+</table>
+
+<h2><a name="functions">Function Details</a></h2>
+
+<h3 class="function"><a name="add_handler-1">add_handler/1</a></h3>
+<div class="spec">
+<p><tt>add_handler(Handler) -&gt; any()</tt></p>
+</div><p>Equivalent to <a href="#add_handler-2"><tt>add_handler(Handler, [])</tt></a>.</p>
+<p>Registered a log handler.</p>
+
+<h3 class="function"><a name="add_handler-2">add_handler/2</a></h3>
+<div class="spec">
+<p><tt>add_handler(Handler, Args) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Handler = atom()</tt></li><li><tt>Args = term()</tt></li></ul></p>
+</div><p><p>Registered a log handler.</p>
+ 
+  Log handlers must implement the <a href="e2_log_handler.html"><code>e2_log_handler</code></a> behavior.
+ </p>
+
+<h3 class="function"><a name="delete_handler-1">delete_handler/1</a></h3>
+<div class="spec">
+<p><tt>delete_handler(Handler) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Handler = atom()</tt></li></ul></p>
+</div><p>Unregisters a log handler.</p>
+
+<h3 class="function"><a name="error-1">error/1</a></h3>
+<div class="spec">
+<p><tt>error(Report::Info) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Info = string() | term()</tt></li></ul></p>
+</div><p>Logs an error report.</p>
+
+<h3 class="function"><a name="error-2">error/2</a></h3>
+<div class="spec">
+<p><tt>error(Type::MsgOrType, Report::ArgsOrReport) -&gt; ok</tt>
+<ul class="definitions"><li><tt>MsgOrType = string() | atom()</tt></li><li><tt>ArgsOrReport = [term()] | term()</tt></li></ul></p>
+</div><p><p>Log an error message or report.</p>
+ 
+  Refer to <a href="#info-2"><code>info/2</code></a> for an explanation on how the arguments are
+  used in this function.
+ </p>
+
+<h3 class="function"><a name="info-1">info/1</a></h3>
+<div class="spec">
+<p><tt>info(Report::Info) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Info = term()</tt></li></ul></p>
+</div><p>Log an info report.
+ </p>
+
+<h3 class="function"><a name="info-2">info/2</a></h3>
+<div class="spec">
+<p><tt>info(Type::MsgOrType, Report::ArgsOrReport) -&gt; ok</tt>
+<ul class="definitions"><li><tt>MsgOrType = string() | atom()</tt></li><li><tt>ArgsOrReport = [term()] | term()</tt></li></ul></p>
+</div><p><p>Log an info report.</p>
+ 
+  <p>If the first argument is a string, the second argument must be a  
+list of arguments used in message format string.</p>
+ 
+  If the first argument is an atom, it is used as the report type for
+  the second argument.
+ </p>
+
+<h3 class="function"><a name="tty-1">tty/1</a></h3>
+<div class="spec">
+<p><tt>tty(Flag::boolean()) -&gt; ok</tt><br></p>
+</div><p>Turns tty printing on or off.</p>
+
+<h3 class="function"><a name="warn-1">warn/1</a></h3>
+<div class="spec">
+<p><tt>warn(Report::Warning) -&gt; ok</tt>
+<ul class="definitions"><li><tt>Info = term()</tt></li></ul></p>
+</div><p>Log a warning report.
+ </p>
+
+<h3 class="function"><a name="warn-2">warn/2</a></h3>
+<div class="spec">
+<p><tt>warn(Type::MsgOrType, Report::ArgsOrReport) -&gt; ok</tt>
+<ul class="definitions"><li><tt>MsgOrType = string() | atom()</tt></li><li><tt>ArgsOrReport = [term()] | term()</tt></li></ul></p>
+</div><p><p>Log a warning report.</p>
+ 
+  <p>If the first argument is a string, the second argument must be a  
+list of arguments used in message format string.</p>
+ 
+  If the first argument is an atom, it is used as the report type for
+  the second argument.
+ </p>
+<hr>
+
+<div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
+<p><i>Generated by EDoc</i></p>
+</body>
+</html>

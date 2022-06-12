@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Batteries Included &mdash; e2</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="e2" href="index.html" />
+    <link rel="up" title="Erlang Overview" href="erlang.html" />
+    <link rel="next" title="Erlang as an Operating System" href="erlang_os.html" />
+    <link rel="prev" title="Erlang Overview" href="erlang.html" />
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-30496899-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript';
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+    'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+  })();
+
+</script> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="erlang_os.html" title="Erlang as an Operating System"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="erlang.html" title="Erlang Overview"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li>
+          <li><a href="overview.html" >e2 Overview</a> &raquo;</li>
+          <li><a href="erlang.html" accesskey="U">Erlang Overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="batteries-included">
+<h1>Batteries Included<a class="headerlink" href="#batteries-included" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference external" href="http://www.erlang.org/doc/man_index.html">list of modules</a> that comes with Erlang is extensive. It can be hard for
+a new user of Erlang to know how to approach this list.</p>
+<p>This is a break down of modules you will most likely make use of.</p>
+<div class="section" id="data-structures">
+<h2>Data Structures<a class="headerlink" href="#data-structures" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/lists.html">lists</a></dt>
+<dd>Manipulate Erlang lists, commonly used higher order functions</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/proplists.html">proplists</a></dt>
+<dd>Manipulate lists of “property” values</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/dict.html">dict</a></dt>
+<dd>Key/value dictionary</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/sets.html">sets</a></dt>
+<dd>Collection of unique elements</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/queue.html">queue</a></dt>
+<dd>FIFO queues</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/orddict.html">orddict</a></dt>
+<dd>Ordered dictionaries</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/ordsets.html">ordsets</a></dt>
+<dd>Ordered sets</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/string.html">string</a></dt>
+<dd>String manipulation</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/unicode.html">unicode</a></dt>
+<dd>Unicode manipulation</dd>
+</dl>
+</div>
+<div class="section" id="data-storage-and-retrieval">
+<h2>Data Storage and Retrieval<a class="headerlink" href="#data-storage-and-retrieval" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/ets.html">ets</a></dt>
+<dd>In memory Erlang term storage</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/dets.html">dets</a></dt>
+<dd>On disk Erlang term storage</dd>
+</dl>
+</div>
+<div class="section" id="files">
+<h2>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/file.html">file</a></dt>
+<dd>Higher level file operations</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/dets.html">filelib</a></dt>
+<dd>Lower level file operations</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/dets.html">filename</a></dt>
+<dd>File name manipulation</dd>
+</dl>
+</div>
+<div class="section" id="date-time">
+<h2>Date/Time<a class="headerlink" href="#date-time" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/calendar.html">calendar</a></dt>
+<dd>Miscellaneous date and time functions</dd>
+</dl>
+</div>
+<div class="section" id="networking">
+<h2>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/inet.html">inet</a></dt>
+<dd>Various TCP/IP functions</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/gen_tcp.html">gen_tcp</a></dt>
+<dd>Interface to TCP/IP sockets</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/gen_udp.html">gen_udp</a></dt>
+<dd>Interface to UDP sockets</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/gen_sctp.html">gen_sctp</a></dt>
+<dd>Interface to SCTP sockets</dd>
+</dl>
+</div>
+<div class="section" id="general-io">
+<h2>General IO<a class="headerlink" href="#general-io" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/io.html">io</a></dt>
+<dd>IO server functions</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/io_lib.html">io_lib</a></dt>
+<dd>IO library functions</dd>
+</dl>
+</div>
+<div class="section" id="regular-expressions">
+<h2>Regular Expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/re.html">re</a></dt>
+<dd>Regular expression support</dd>
+</dl>
+</div>
+<div class="section" id="erlang-system">
+<h2>Erlang System<a class="headerlink" href="#erlang-system" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/erlang.html">erlang</a></dt>
+<dd>Erlang BIFs (built in functions)</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/sys.html">sys</a></dt>
+<dd>Interface to Erlang system messages</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/init.html">init</a></dt>
+<dd>Coodination of Erlang system startup</dd>
+</dl>
+</div>
+<div class="section" id="operating-system">
+<h2>Operating System<a class="headerlink" href="#operating-system" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/application.html">os</a></dt>
+<dd>Operating system functions</dd>
+</dl>
+</div>
+<div class="section" id="file-archives-and-compression">
+<h2>File Archives and Compression<a class="headerlink" href="#file-archives-and-compression" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/zip.html">zip</a></dt>
+<dd>Read and create zip archives</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/zlib.html">zlib</a></dt>
+<dd>ZLIB compression support</dd>
+</dl>
+</div>
+<div class="section" id="hash-digests-and-cryptography">
+<h2>Hash Digests and Cryptography<a class="headerlink" href="#hash-digests-and-cryptography" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/base64.html">base64</a></dt>
+<dd>base64 encoding and decoding</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/crypto.html">crypto</a></dt>
+<dd>Cryptographic functions</dd>
+</dl>
+</div>
+<div class="section" id="general-computation">
+<h2>General Computation<a class="headerlink" href="#general-computation" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/math.html">math</a></dt>
+<dd>Common mathematical functions</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/random.html">random</a></dt>
+<dd>Pseudo random number generation</dd>
+</dl>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/eunit.html">eunit</a></dt>
+<dd>EUnit support</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/ct.html">ct</a></dt>
+<dd>Common Test support</dd>
+</dl>
+</div>
+<div class="section" id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/dbg.html">dbg</a></dt>
+<dd>Text based tracing</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/debugger.html">debugger</a></dt>
+<dd>Graphical debugger</dd>
+</dl>
+</div>
+<div class="section" id="developer-utilities">
+<h2>Developer Utilities<a class="headerlink" href="#developer-utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/edoc.html">edoc</a></dt>
+<dd>Documentation generator</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/cover.html">cover</a></dt>
+<dd>Coverage analysis</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/cprof.html">cprof</a></dt>
+<dd>Call count profiling tool</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/fprof.html">fprof</a></dt>
+<dd>Time profiling tool</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/dialyzer.html">dialyzer</a></dt>
+<dd>Discrepancy analysis tool</dd>
+</dl>
+</div>
+<div class="section" id="internet">
+<h2>Internet<a class="headerlink" href="#internet" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/ftp.html">ftp</a></dt>
+<dd>FTP client</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/httpc.html">httpc</a></dt>
+<dd>HTTP client</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/httpd.html">httpd</a></dt>
+<dd>HTTP server</dd>
+</dl>
+</div>
+<div class="section" id="otp">
+<h2>OTP<a class="headerlink" href="#otp" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/application.html">application</a></dt>
+<dd>OTP application functions</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/proc_lib.html">proc_lib</a></dt>
+<dd>Lowed level OTP support</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/gen_server.html">gen_server</a></dt>
+<dd>High level OTP interface for Erlang processes</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/supervisor.html">supervisor</a></dt>
+<dd>Supervise other OTP processes</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/gen_event.html">gen_event</a></dt>
+<dd>Extensible OTP interface for Erlang processes</dd>
+<dt><a class="reference external" href="http://www.erlang.org/doc/man/gen_fsm.html">gen_fsm</a></dt>
+<dd>OTP interface for finite state machines</dd>
+</dl>
+</div>
+</div>
+
+
+
+<!--
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e2project';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+-->
+
+ <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'e2project'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/e2logo.png" alt="Logo"/>
+            </a></p>
+<h3><a href="index.html">Table of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">e2 Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">e2 Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">e2 Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source.html">Source Code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="applications.html">e2 Applications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">e2 Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">e2 Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="supervisors.html">e2 Supervisors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facades.html">Facades</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="erlang.html">Erlang Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Batteries Included</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="e2_vs_otp.html">e2 vs OTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="principles.html">Design Principles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">To Do</a></li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3>API Reference</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">Overview</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application.html">e2_application</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_application_sup.html">e2_application_sup</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log.html">e2_log</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_log_handler.html">e2_log_handler</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_opt.html">e2_opt</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_publisher.html">e2_publisher</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service.html">e2_service</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_service_impl.html">e2_service_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_simple_task.html">e2_simple_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_supervisor.html">e2_supervisor</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task.html">e2_task</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_impl.html">e2_task_impl</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="api/e2_task_supervisor.html">e2_task_supervisor</a></li>
+</ul>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="erlang_os.html" title="Erlang as an Operating System"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="erlang.html" title="Erlang Overview"
+             >previous</a> |</li>
+        <li><a href="index.html">e2</a> &raquo;</li>
+          <li><a href="overview.html" >e2 Overview</a> &raquo;</li>
+          <li><a href="erlang.html" >Erlang Overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Garrett Smith.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
